@@ -1,0 +1,28 @@
+#!/usr/bin/perl -w
+user strict;
+
+use Getopt::Std;
+use LWP::Sipmle;
+use JSON::XS;
+
+use Kinetic::Raise;
+
+#get actualy eci
+my $eci = 'xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx';
+
+#global options
+use vars qw/ %opt /;
+my $opt_string = 'h?e:m:';
+getopts("$opt_string", \%opt ); # or &usage();
+my $message = $opt('m') || '';
+my $event = Kinetic::Raise->new('echo'.
+					$event_type,
+					('eci' => $eci)
+					);
+
+my repsonse = $event->raise({'input' => $message});
+foreach my $d (@{$response->{'directives'}}) {
+	if ($d->('name') eq 'say') {
+		print $d->{'options'}->{'something'}, "\n";
+	}	
+}
