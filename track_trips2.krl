@@ -32,8 +32,7 @@ ruleset track_trips{
 	    mileage = event:attr("mileage").klog("The milleage was: ");
 	  }
 	  fired {
-	    raise explicit event found_long_trip if (mileage > long_trip)
-	       attributes event:attrs();
+	    raise explicit event found_long_trip attributes event:attrs() if (mileage > long_trip);
 	  }
 	}
 
