@@ -7,14 +7,32 @@ ruleset track_trips{
 	  sharing on
 	}
 
+	global {
+	   long_trip = 100;
+	}
+
 	rule process_trip is active {
-	  select when echo message
+	  select when car new_trip
 	  pre {
 	     mileage = event:attr("mileage");
 	  }
 	  {
 	  	send_directive("trip") with
 	  	  trip_length = mileage;
+	  }
+	  fired{
+	    raise explicit event trip_processed
+	  	    attributes event:attrs();
+	  }
+	}
+
+	rule find_long_trips is active {
+	  select when explicit trip_processed
+	  pre {
+	    mileage = event:attr("mileage");
+	  }
+	  fired {
+	    raise explicit event found_long_trip if (mileage > long_trip);
 	  }
 	}
 }
