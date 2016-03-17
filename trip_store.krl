@@ -18,7 +18,12 @@ ruelset trip_store{
        }
 
        short_trips = function() {
-         ent:trips - ent:long_trips;
+         long = ent:long_trips;
+         all = ent:trips;
+         short = all.filter(function(x){
+         	long.none(function(y){ y eq x  };
+         });
+         short;
        }
 	}
 
@@ -27,6 +32,7 @@ ruelset trip_store{
 	  pre{
 	    mileage = event.attr("mileage");
 	    trip_info = mileage + timestamp;
+	    log trip_info
 	  }
 	  fired {
 	    set ent:trips ent:trips.append(trip_info);
@@ -38,6 +44,7 @@ ruelset trip_store{
 	  pre{
  	    mileage = event.attr("mileage");
 	    trip_info = mileage + timestamp;
+	    log trip_info
 	  }
 	  fired {
 	    set ent:long_trips ent:long_trips.append(trip_info);
@@ -49,6 +56,7 @@ ruelset trip_store{
 	  fired{
 	    set ent:trips [];
 	    set ent:long_trips [];
+	    log "Cleared trips!"
 	  }
 	}
 }
