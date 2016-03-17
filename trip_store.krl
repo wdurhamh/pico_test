@@ -4,8 +4,8 @@ ruleset trip_store{
 	  description <<A neat ruleset for part 3 of the lab>>
 	  author "Winston HUrst"
 	  logging on
-	  sharing on
-	  provides trips, long_trips, short_trips
+	  sharing off
+	  provides long_trips, short_trips
 	}
 
 	global{
@@ -46,7 +46,7 @@ ruleset trip_store{
 	  pre{
  	    mileage = event:attr("mileage");
 	    now = time:now();
-	    trip_info = mileage + " " +time:strftime(now, "%F %T");
+	    trip_info = mileage + " " + time:strftime(now, "%F %T");
 	  }
 	  fired{
 	    set ent:long_trips ent:long_trips.append(trip_info);
