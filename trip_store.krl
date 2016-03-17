@@ -4,7 +4,7 @@ ruleset trip_store{
 	  description <<A neat ruleset for part 3 of the lab>>
 	  author "Winston HUrst"
 	  logging on
-	  sharing off
+	  sharing on
 	  provides long_trips, short_trips
 	}
 
