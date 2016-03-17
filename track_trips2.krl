@@ -1,6 +1,6 @@
 ruleset track_trips{
 	meta {
-	  name "Trip Tracker"
+	  name "Trip Tracker2"
 	  description <<Ruleset for the second part of the first part of this lab>>
 	  author "Winston Hurst"
 	  logging on 
