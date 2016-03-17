@@ -1,5 +1,5 @@
-ruelset trip_store{
-	meta {
+ruleset trip_store{
+	meta{
 	  name "Trip Store Ruleset"
 	  description <<A neat ruleset for part 3 of the lab>>
 	  author "Winston HUrst"
@@ -21,7 +21,7 @@ ruelset trip_store{
          long = ent:long_trips;
          all = ent:trips;
          short = all.filter(function(x){
-         	long.none(function(y){ y eq x  };
+         	long.none(function(y){ y eq x  });
          });
          short;
        }
@@ -30,24 +30,25 @@ ruelset trip_store{
 	rule collect_trips{
 	  select when explicit trip_processed
 	  pre{
-	    mileage = event.attr("mileage");
+	    mileage = event:attr("mileage");
 	    trip_info = mileage + timestamp;
-	    log trip_info
 	  }
 	  fired {
 	    set ent:trips ent:trips.append(trip_info);
+	    log(trip_info)
 	  }
 	}
 
 	rule collect_long_trips{
 	  select when explicit found_long_trip
 	  pre{
- 	    mileage = event.attr("mileage");
+ 	    mileage = event:attr("mileage");
 	    trip_info = mileage + timestamp;
-	    log trip_info
+	    
 	  }
-	  fired {
+	  fired{
 	    set ent:long_trips ent:long_trips.append(trip_info);
+	    log(trip_info)
 	  }
 	}
 
