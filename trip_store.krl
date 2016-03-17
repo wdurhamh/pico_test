@@ -31,7 +31,8 @@ ruleset trip_store{
 	  select when explicit trip_processed
 	  pre{
 	    mileage = event:attr("mileage");
-	    trip_info = "" + mileage + time:now();
+	    now = time:now();
+	    trip_info = mileage + time:strftime(now, "%F %T");
 	  }
 	  fired {
 	    set ent:trips ent:trips.append(trip_info);
@@ -43,8 +44,8 @@ ruleset trip_store{
 	  select when explicit found_long_trip
 	  pre{
  	    mileage = event:attr("mileage");
-	    trip_info = "" + mileage + time:now();
-	    
+	    now = time:now();
+	    trip_info = mileage + time:strftime(now, "%F %T");
 	  }
 	  fired{
 	    set ent:long_trips ent:long_trips.append(trip_info);
