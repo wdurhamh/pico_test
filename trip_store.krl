@@ -37,6 +37,7 @@ ruleset trip_store{
 	  fired {
 	    set ent:trips ent:trips.append(trip_info);
 	    log(trip_info)
+	    log(now)
 	  }
 	}
 
@@ -50,6 +51,7 @@ ruleset trip_store{
 	  fired{
 	    set ent:long_trips ent:long_trips.append(trip_info);
 	    log(trip_info)
+	    log(now)
 	  }
 	}
 
