@@ -32,7 +32,7 @@ ruleset trip_store{
 	  pre{
 	    mileage = event:attr("mileage");
 	    now = time:now();
-	    trip_info = mileage + time:strftime(now, "%F %T");
+	    trip_info = mileage +  " " + time:strftime(now, "%F %T");
 	  }
 	  fired {
 	    set ent:trips ent:trips.append(trip_info);
@@ -46,7 +46,7 @@ ruleset trip_store{
 	  pre{
  	    mileage = event:attr("mileage");
 	    now = time:now();
-	    trip_info = mileage + time:strftime(now, "%F %T");
+	    trip_info = mileage + " " +time:strftime(now, "%F %T");
 	  }
 	  fired{
 	    set ent:long_trips ent:long_trips.append(trip_info);
