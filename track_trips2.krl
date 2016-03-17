@@ -29,10 +29,15 @@ ruleset track_trips{
 	rule find_long_trips is active {
 	  select when explicit trip_processed
 	  pre {
-	    mileage = event:attr("mileage");
+	    mileage = event:attr("mileage").klog("The milleage was: ");
 	  }
 	  fired {
 	    raise explicit event found_long_trip if (mileage > long_trip);
 	  }
+	}
+
+	rule process_long_trip{
+	  select when explicit found_long_trip
+	  log ("It was a long trip!")
 	}
 }
