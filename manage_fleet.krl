@@ -8,15 +8,17 @@ ruleset manage_fleet{
 		use module b507199x5 alias wranglerOS
 	}
 
-	global {
+	global{
 		vehicles = function(){
 			results = wranglerOS:children();
 			children = results{"children"};
+			children;
 		}
 
-		subscriptions = function() {
+		subs = function() {
 			results = wranglerOS:subscriptions();
 			subscriptions = results{"subscriptions"};
+			subscriptions;
 		}
 	}
 
@@ -57,7 +59,7 @@ ruleset manage_fleet{
 			raise wrangler event "child_deletion"
 			attributes attr.klog("attributes: ");
 			log("Deleted vehilce with eci " + eci);
-			log(subscriptions)
+			log(subs)
 			//also need to delete subscription
 		}
 	}
@@ -65,7 +67,7 @@ ruleset manage_fleet{
 	rule autoAccept {
     	select when wrangler inbound_pending_subscription_added 
     	pre{
-      		attributes = event:attrs().klog("subcription :");
+      		attributes = event:attrs().klog("subscription :");
      	 }
       	{
       		noop();
@@ -73,7 +75,7 @@ ruleset manage_fleet{
     	always{
       		raise wrangler event 'pending_subscription_approval'
           	attributes attributes;        
-          	log("auto accepted subcription.");
+          	log("auto accepted subscription.");
     	}
   	}
 }
