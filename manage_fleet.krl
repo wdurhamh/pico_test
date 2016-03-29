@@ -15,7 +15,7 @@ ruleset manage_fleet{
 		 pre{
       		child_name = event:attr("name");
       		attr = {}
-                              .put(["Prototype_rids"],"b507777x0.prod") // ; separated rulesets the child needs installed at creation. this is the track_trips (2) ruleset
+                              .put(["Prototype_rids"],"b507777x0.prod;b507777x2.prod") // ; separated rulesets the child needs installed at creation. this is the track_trips (2) ruleset
                               .put(["name"],child_name) // name for child_name
                               .put(["parent_eci"],parent_eci) // eci for child to subscribe
                               ;
