@@ -61,8 +61,8 @@ ruleset manage_fleet{
 		always {
 			raise wrangler event subscription_cancellation
 			attributes attr2.klog("attributes: ");
-			log("Deleting subscription with channel ", channel);
-			log(subs[0])
+			log("Deleting subscription with channel " + channel);
+			log(subs[0]);
 			raise wrangler event "child_deletion"
 			attributes attr1.klog("attributes: ");
 			log("Deleted vehilce with eci " + eci);
