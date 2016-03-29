@@ -16,7 +16,7 @@ ruleset child_subscribe{
        // place  "use module  b507199x5 alias wrangler_api" in meta block!!
        parent_results = wrangler_api:parent();
        parent = parent_results{'parent'};
-       parent_eci = parent[0]; // eci is the first element in tuple 
+       parent_eci = parent[0]; // eci is the first element in tuple. This is awful practice. Where can i find the name?
        attrs = {}.put(["name"],"Family")
                       .put(["name_space"],"Tutorial_Subscriptions")
                       .put(["my_role"],"Child")

@@ -7,6 +7,13 @@ ruleset manage_fleet{
 		sharing on
 	}
 
+	global {
+		vehicles = function(){
+			results = wranglerOS:children();
+			children = results{"children"};
+		}
+	}
+
 
 
 	rule create_vehicle is active {
@@ -28,6 +35,24 @@ ruleset manage_fleet{
       		attributes attr.klog("attributes: ");
       		log("create child for " + child);
     	}
+	}
+
+	rule delete_vehicle is active {
+		select when car unneeded_vehicle
+		pre{
+			eci = event:attr("eci");
+			attr = {}
+						.put(["deletionTarget"],eci);
+		}
+		{
+			noop();
+		}
+		always {
+			raise wrangler event "child_deletion"
+			attributes attr.klog("attributes: ");
+			log("Deleted vehilce with name " + child_name);
+			//also need to delete subscription
+		}
 	}
 
 	rule autoAccept {
