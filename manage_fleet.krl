@@ -49,18 +49,23 @@ ruleset manage_fleet{
 		select when car unneeded_vehicle
 		pre{
 			eci = event:attr("eci");
-			attr = {}
+			attr1 = {}
 						.put(["deletionTarget"],eci);
+			channel = event:attr("channel");
+			attr2 = {}
+						.put(["channel_name"], channel);
 		}
 		{
 			noop();
 		}
 		always {
+			raise wrangler event subscription_cancellation
+			attributes attr2.klog("attributes: ");
+			log("Deleting subscription with channel ", channel);
+			log(subs[0])
 			raise wrangler event "child_deletion"
-			attributes attr.klog("attributes: ");
+			attributes attr1.klog("attributes: ");
 			log("Deleted vehilce with eci " + eci);
-			log(subs)
-			//also need to delete subscription
 		}
 	}
 
