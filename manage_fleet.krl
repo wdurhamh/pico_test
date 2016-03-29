@@ -5,12 +5,18 @@ ruleset manage_fleet{
 		author "Winston Hurst"
 		logging on
 		sharing on
+		use module b507199x5 alias wranglerOS
 	}
 
 	global {
 		vehicles = function(){
 			results = wranglerOS:children();
 			children = results{"children"};
+		}
+
+		subscriptions = function() {
+			results = wranglerOS:subscriptions();
+			subscriptions = results{"subscriptions"};
 		}
 	}
 
@@ -50,7 +56,8 @@ ruleset manage_fleet{
 		always {
 			raise wrangler event "child_deletion"
 			attributes attr.klog("attributes: ");
-			log("Deleted vehilce with name " + child_name);
+			log("Deleted vehilce with eci " + eci);
+			log(subscriptions)
 			//also need to delete subscription
 		}
 	}
