@@ -5,7 +5,7 @@ ruleset trip_store{
 	  author "Winston HUrst"
 	  logging on
 	  sharing on
-	  provides long_trips, short_trips
+	  provides long_trips, short_trips, trips
 	}
 
 	global{
