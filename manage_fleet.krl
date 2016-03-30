@@ -159,7 +159,7 @@ ruleset manage_fleet{
   	}
 
   	rule gather_reports {
-  		select when car report_requested
+  		select when car report_sent
   		pre{
   			cid = event:attr("cid");
   			report_index = ent:cid_list.index(cid);
