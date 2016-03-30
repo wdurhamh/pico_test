@@ -6,7 +6,7 @@ ruleset manage_fleet{
 		logging on
 		sharing on
 		use module b507199x5 alias wranglerOS
-		provides vehicles, subs, trip_reports
+		provides vehicles, subs, trip_reports, five_latest
 	}
 
 	global{
