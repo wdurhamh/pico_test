@@ -70,7 +70,7 @@ ruleset manage_fleet{
 			attributes attr2.klog("attributes: ");
 			log("Deleting subscription with channel " + channel);
 			log(subs());
-			log(children[0])
+			log(children[0]);
 			raise wrangler event "child_deletion"
 			attributes attr1.klog("attributes: ");
 			log("Deleted vehilce with eci " + eci);
