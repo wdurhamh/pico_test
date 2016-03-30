@@ -63,4 +63,21 @@ ruleset trip_store{
 	    log "Cleared trips!"
 	  }
 	}
+
+	rule send_report {
+		select when car report_requested
+		pre{
+			report = trips();
+			attrs = event:attr
+					.put(["report"],report);
+		}
+		{
+			noop();
+		}
+		always {
+			//send it back. Do we need to specify chanel
+			raise car event report_sent
+			attributes attrs;
+		}
+	}
 }

@@ -58,6 +58,14 @@ ruleset manage_fleet{
 			});
 			all_trips;
 		}
+
+		five_latest = function() {
+			p_r = ent:reports.filter(function(x){
+				i = ent:reports.reverse().index(x);
+				i < 6;
+			});
+			p_r;
+		}
 	}
 
 
@@ -120,5 +128,35 @@ ruleset manage_fleet{
           	attributes attributes;        
           	log("auto accepted subscription.");
     	}
+  	}
+
+  	rule request_new_report {
+  		select when car new_report
+  		pre{
+  			chiles = vehicles();
+  			correleation_id = random:uuid();
+  			attrs = {}
+  						.put(["cid"], correlation_id);
+  		}
+  		{
+  			noop();
+  		}
+  		always{
+  			set ent:cid_list ent:cid_list.append(correlation_id);
+  			set ent:reports ent:reports.append([])
+  			raise car event report_requested
+  		}
+  	}
+
+  	rule gather_reports {
+  		select when car report_requested
+  		pre{
+  			cid = event:attr("cid");
+  			report_index = ent:cid_list.index(cid);
+  			report = event:attr("report");
+		}
+		fired{
+			set ent:reports ent:reports[report_index].append(report);
+		}
   	}
 }
