@@ -34,6 +34,7 @@ ruleset manage_fleet{
                               .put(["name"],child_name) // name for child_name
                               .put(["parent_eci"],parent_eci) // eci for child to subscribe
                               ;
+            children = pci:list_children();
     	}
     	{
       		noop();
@@ -43,12 +44,16 @@ ruleset manage_fleet{
       		attributes attr.klog("attributes: ");
       		log("create child for " + child_name);
       		log("Current subscriptions are" + subs());
+      		log(child_name);
     	}
 	}
 
 	rule delete_vehicle is active {
 		select when car unneeded_vehicle
 		pre{
+			name = event:attr("name");
+			children = pci:list_children();
+
 			eci = event:attr("eci");
 			attr1 = {}
 						.put(["deletionTarget"],eci);
@@ -64,6 +69,7 @@ ruleset manage_fleet{
 			attributes attr2.klog("attributes: ");
 			log("Deleting subscription with channel " + channel);
 			log(subs());
+			log(children[0])
 			raise wrangler event "child_deletion"
 			attributes attr1.klog("attributes: ");
 			log("Deleted vehilce with eci " + eci);
