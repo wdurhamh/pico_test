@@ -35,7 +35,7 @@ ruleset manage_fleet{
                               .put(["name"],child_name) // name for child_name
                               .put(["parent_eci"],parent_eci) // eci for child to subscribe
                               ;
-            children = pci:list_children();
+            children = vehicles();
     	}
     	{
       		noop();
