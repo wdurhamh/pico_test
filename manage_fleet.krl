@@ -66,6 +66,12 @@ ruleset manage_fleet{
 			});
 			p_r;
 		}
+
+		reset_reporting = function() {
+			ent:reports = [];
+			ent:cid_list = [];
+			"Complete";
+		}
 	}
 
 
@@ -159,8 +165,7 @@ ruleset manage_fleet{
 		fired{
 			log("Report index is " + report_index);
   			log("CID is " + cid);
-  			log(ent:cid_list);
-			set ent:reports{[reort_index]} ent:reports[report_index].append(report);
+			set ent:reports ent:reports[report_index].append(report);
 		}
   	}
 }
