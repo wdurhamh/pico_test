@@ -168,6 +168,7 @@ ruleset manage_fleet{
 		fired{
 			log("Report index is " + report_index);
   			log("CID is " + cid);
+  			log("Reports are loking like " + ent:reports);
 			set ent:reports ent:reports[report_index].append(report);
 		}
   	}
