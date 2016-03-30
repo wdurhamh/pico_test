@@ -134,7 +134,7 @@ ruleset manage_fleet{
   		select when car new_report
   		pre{
   			chiles = vehicles();
-  			correleation_id = random:uuid();
+  			correlation_id = random:uuid();
   			attrs = {}
   						.put(["cid"], correlation_id);
   		}
