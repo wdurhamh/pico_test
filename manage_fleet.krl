@@ -6,6 +6,7 @@ ruleset manage_fleet{
 		logging on
 		sharing on
 		use module b507199x5 alias wranglerOS
+		provides vehicles, subs
 	}
 
 	global{
@@ -44,7 +45,7 @@ ruleset manage_fleet{
       		attributes attr.klog("attributes: ");
       		log("create child for " + child_name);
       		log("Current subscriptions are" + subs());
-      		log(child_name);
+      		log(children[0]);
     	}
 	}
 
