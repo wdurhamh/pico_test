@@ -6,7 +6,7 @@ ruleset manage_fleet{
 		logging on
 		sharing on
 		use module b507199x5 alias wranglerOS
-		provides vehicles, subs, trip_reports, five_latest, reset_reporting
+		provides vehicles, subs, trip_reports, five_latest
 	}
 
 	global{
@@ -67,10 +67,13 @@ ruleset manage_fleet{
 			p_r;
 		}
 
-		reset_reporting = function() {
-			ent:reports = [];
-			ent:cid_list = [];
-			"Complete";
+	}
+
+	rule reset_reporting is active {
+		select when car reset_reporting
+		always{
+			set ent:reports [];
+			set ent:cid_list [];	
 		}
 	}
 
