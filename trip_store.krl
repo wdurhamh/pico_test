@@ -77,7 +77,7 @@ ruleset trip_store{
 		always {
 			//send it back. Do we need to specify chanel
 			raise car event report_sent
-			attributes attrs;
+			attributes attrs.klog("Attributes: ");
 		}
 	}
 }
