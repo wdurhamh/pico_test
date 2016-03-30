@@ -42,6 +42,7 @@ ruleset manage_fleet{
       		raise wrangler event "child_creation"
       		attributes attr.klog("attributes: ");
       		log("create child for " + child);
+      		log(subs());
     	}
 	}
 
