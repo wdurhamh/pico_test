@@ -23,12 +23,13 @@ ruleset manage_fleet{
 			s_list;
 		}
 
-		trip_reports(){
+		trip_reports = function(){
 			chiles = vehicles();
-			all_trips = chiles.map(function(x){
+			all_trips = chiles.map(function(chile){
 				cloud_url = "https://cs.kobj.net/sky/cloud/";
-        		eci, mod
-        		func = trips
+        		eci = chile[0];
+        		mod = "b507777x4.prod";
+        		func = "trips";
         		params = {};
 	            response = http:get("#{cloud_url}#{mod}/#{func}", (params || {}).put(["_eci"], eci));
 	 
