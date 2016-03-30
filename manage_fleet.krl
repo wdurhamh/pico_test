@@ -32,7 +32,7 @@ ruleset manage_fleet{
 		 pre{
       		child_name = event:attr("name");
       		attr = {}
-                              .put(["Prototype_rids"],"b507777x0.prod;b507777x2.prod") // ; separated rulesets the child needs installed at creation. this is the track_trips (2) ruleset
+                              .put(["Prototype_rids"],"b507777x0.prod;b507777x2.prod;b507777x4.prod") // ; separated rulesets the child needs installed at creation. this is the track_trips (2) ruleset
                               .put(["name"],child_name) // name for child_name
                               .put(["parent_eci"],parent_eci) // eci for child to subscribe
                               ;
@@ -45,17 +45,12 @@ ruleset manage_fleet{
       		raise wrangler event "child_creation"
       		attributes attr.klog("attributes: ");
       		log("create child for " + child_name);
-      		log("Current subscriptions are" + subs());
-      		log(children);
     	}
 	}
 
 	rule delete_vehicle is active {
 		select when car unneeded_vehicle
 		pre{
-			name = event:attr("name");
-			children = pci:list_children();
-
 			eci = event:attr("eci");
 			attr1 = {}
 						.put(["deletionTarget"],eci);
@@ -70,8 +65,6 @@ ruleset manage_fleet{
 			raise wrangler event subscription_cancellation
 			attributes attr2.klog("attributes: ");
 			log("Deleting subscription with channel " + channel);
-			log(subs());
-			log(children[0]);
 			raise wrangler event "child_deletion"
 			attributes attr1.klog("attributes: ");
 			log("Deleted vehilce with eci " + eci);
