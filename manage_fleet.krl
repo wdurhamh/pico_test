@@ -45,7 +45,7 @@ ruleset manage_fleet{
       		attributes attr.klog("attributes: ");
       		log("create child for " + child_name);
       		log("Current subscriptions are" + subs());
-      		log(children[0]);
+      		log(children);
     	}
 	}
 
