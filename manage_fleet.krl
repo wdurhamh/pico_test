@@ -153,11 +153,11 @@ ruleset manage_fleet{
   		pre{
   			cid = event:attr("cid");
   			report_index = ent:cid_list.index(cid);
-  			log("Report index is " + report_index);
-  			log("CID is " + cid);
   			report = event:attr("report");
 		}
 		fired{
+			log("Report index is " + report_index);
+  			log("CID is " + cid);
 			set ent:reports ent:reports[report_index].append(report);
 		}
   	}
