@@ -51,7 +51,7 @@ ruleset manage_fleet{
 			eci = event:attr("eci");
 			attr1 = {}
 						.put(["deletionTarget"],eci);
-			channel = event:attr("channel");
+			channel = event:attr("channel");//need a better way of deleting a channel
 			attr2 = {}
 						.put(["channel_name"], channel);
 		}
@@ -62,7 +62,9 @@ ruleset manage_fleet{
 			raise wrangler event subscription_cancellation
 			attributes attr2.klog("attributes: ");
 			log("Deleting subscription with channel " + channel);
-			log(subs[0]);
+			results = wranglerOS:subscriptions();
+			subscriptions = results{"subscriptions"};
+			log(subscriptions[0]);
 			raise wrangler event "child_deletion"
 			attributes attr1.klog("attributes: ");
 			log("Deleted vehilce with eci " + eci);
