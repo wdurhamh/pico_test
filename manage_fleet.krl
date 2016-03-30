@@ -145,6 +145,7 @@ ruleset manage_fleet{
   			set ent:cid_list ent:cid_list.append(correlation_id);
   			set ent:reports ent:reports.append([]);
   			raise car event report_requested
+  			attributes attrs;
   		}
   	}
 
