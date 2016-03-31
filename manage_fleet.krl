@@ -155,7 +155,7 @@ ruleset manage_fleet{
   		always{
   			set ent:cid_list ent:cid_list.append(correlation_id);
   			set ent:reports ent:reports.append([]);
-  			raise car event scatter with attr = ats
+  			raise car event scatter with attr = ats.klog("sending attributes: ");
   		}
   	}
 
