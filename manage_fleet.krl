@@ -59,6 +59,8 @@ ruleset manage_fleet{
 			all_trips;
 		}
 
+
+
 		five_latest = function() {
 			p_r = ent:reports.filter(function(x){
 				i = ent:reports.reverse().index(x);
@@ -144,7 +146,7 @@ ruleset manage_fleet{
   		pre{
   			chiles = vehicles();
   			correlation_id = random:uuid();
-  			attrs = {}
+  			ats = {}
   						.put(["cid"], correlation_id);
   		}
   		{
@@ -153,8 +155,23 @@ ruleset manage_fleet{
   		always{
   			set ent:cid_list ent:cid_list.append(correlation_id);
   			set ent:reports ent:reports.append([]);
-  			raise car event report_requested
-  			attributes attrs;
+  			raise car event scatter with attr = ats
+  		}
+  	}
+
+  	rule scatter {
+  		select when car scatter
+  		foreach children() setting (sub)
+  		pre{
+  			event_eci = sub.pick("$..event_eci");
+  			ats = event:attr;
+  		}
+  		{
+  			event:send({"cid": event_eci}, "car", "report_requested") 
+  				with attr = ats.klog("Attributes: ")
+  		}
+  		always{
+  			log("This is super neat!");
   		}
   	}
 
