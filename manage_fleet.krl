@@ -171,7 +171,7 @@ ruleset manage_fleet{
   		}
   		always{
   			log("Event eci: " + event_eci);
-  			log("Attributes passed were " + event:attr());
+  			log("Attributes passed were " + event:attrs());
   		}
   	}
 
