@@ -161,7 +161,7 @@ ruleset manage_fleet{
 
   	rule scatter {
   		select when car scatter
-  		foreach children() setting (sub)
+  		foreach subs() setting (sub)
   		pre{
   			event_eci = sub.pick("$..event_eci");
   			ats = event:attr;
