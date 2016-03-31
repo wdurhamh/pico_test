@@ -171,7 +171,7 @@ ruleset manage_fleet{
   				with attr = ats.klog("Attributes: ")
   		}
   		always{
-  			log("This is super neat!");
+  			log("Event eci: " + event_eci)
   		}
   	}
 
