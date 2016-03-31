@@ -165,7 +165,6 @@ ruleset manage_fleet{
   		pre{
   			event_eci = sub.pick("$..event_eci");
   			ats = event:attr;
-  			log("Attributes passed were " + event:attr);
   		}
   		{
   			event:send({"cid": event_eci}, "car", "report_requested") 
@@ -173,6 +172,7 @@ ruleset manage_fleet{
   		}
   		always{
   			log("Event eci: " + event_eci);
+  			log("Attributes passed were " + event:attr);
   		}
   	}
 
