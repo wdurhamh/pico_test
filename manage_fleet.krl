@@ -167,7 +167,7 @@ ruleset manage_fleet{
   		}
   		{
   			event:send({"cid": event_eci}, "car", "report_requested") 
-  				attributes event:attrs();
+  				with attr = event:attrs().klog("Attributes: ");
   		}
   		always{
   			log("Event eci: " + event_eci);
